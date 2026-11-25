@@ -11,6 +11,8 @@ from generators.base import BaseGenerator
 
 
 class TrainerApp:
+    EXAM_TASK_COUNT = 5
+
     def __init__(
         self,
         root: tk.Tk,
@@ -38,6 +40,8 @@ class TrainerApp:
         self.root.option_add("*Font", ("Segoe UI", 11))
 
         style = ttk.Style()
+        if "clam" in style.theme_names():
+            style.theme_use("clam")
         style.configure("TFrame", background="#f3f6fb")
         style.configure("TLabel", background="#f3f6fb", foreground="#17233b")
         style.configure("Title.TLabel", font=("Segoe UI", 25, "bold"), foreground="#173b70")
@@ -45,8 +49,30 @@ class TrainerApp:
         style.configure("Card.TFrame", background="white", relief="solid", borderwidth=1)
         style.configure("CardTitle.TLabel", background="white", font=("Segoe UI", 13, "bold"))
         style.configure("CardText.TLabel", background="white", foreground="#52627a")
-        style.configure("Accent.TButton", font=("Segoe UI", 11, "bold"), padding=(16, 10))
-        style.configure("TButton", padding=(10, 7))
+        style.configure(
+            "Accent.TButton",
+            font=("Segoe UI", 11, "bold"),
+            foreground="white",
+            background="#2872c7",
+            padding=(16, 10),
+        )
+        style.map(
+            "Accent.TButton",
+            foreground=[("disabled", "#f3f6fb"), ("pressed", "white"), ("active", "white")],
+            background=[("disabled", "#9ab8da"), ("pressed", "#174b80"), ("active", "#1e5d9f")],
+        )
+        style.configure(
+            "TButton",
+            font=("Segoe UI", 11),
+            foreground="#17233b",
+            background="#e5eaf2",
+            padding=(10, 7),
+        )
+        style.map(
+            "TButton",
+            foreground=[("disabled", "#8894a8"), ("pressed", "#17233b"), ("active", "#17233b")],
+            background=[("disabled", "#f1f3f6"), ("pressed", "#cbd7e8"), ("active", "#d6e2f2")],
+        )
         style.configure("Horizontal.TProgressbar", troughcolor="#e5eaf2", background="#2872c7")
 
         self._show_menu()
@@ -72,13 +98,13 @@ class TrainerApp:
         actions.pack(fill="x", pady=(0, 20))
         ttk.Button(
             actions,
-            text="Zufällig üben",
+            text="Zufallsaufgabe starten",
             style="Accent.TButton",
             command=lambda: self.start_practice(),
         ).pack(side="left", padx=(0, 10))
         ttk.Button(
             actions,
-            text="Prüfungssimulation · 5 Aufgaben",
+            text=f"Prüfung starten · {self.EXAM_TASK_COUNT} Aufgaben",
             style="Accent.TButton",
             command=self.start_exam,
         ).pack(side="left")
@@ -102,7 +128,7 @@ class TrainerApp:
             ttk.Progressbar(card, maximum=100, value=progress).pack(fill="x", pady=(0, 12))
             ttk.Button(
                 card,
-                text="Thema üben",
+                text="Thema starten",
                 command=lambda selected=generator: self.start_practice(selected),
             ).pack(anchor="w")
 
@@ -113,7 +139,10 @@ class TrainerApp:
 
     def start_exam(self) -> None:
         self.mode = "exam"
-        self.exam_generators = random.sample(self.generators, k=min(5, len(self.generators)))
+        self.exam_generators = random.sample(
+            self.generators,
+            k=min(self.EXAM_TASK_COUNT, len(self.generators)),
+        )
         self.exam_results = []
         self.exam_index = 0
         self._next_task()
@@ -234,7 +263,7 @@ class TrainerApp:
         ttk.Label(frame, text=steps, wraplength=820, justify="left").pack(anchor="w")
 
         if self.mode == "exam" and self.exam_index + 1 >= len(self.exam_generators):
-            next_text = "Prüfungsergebnis anzeigen"
+            next_text = "Prüfung abschließen · Ergebnis anzeigen"
         else:
             next_text = "Nächste Aufgabe"
         ttk.Button(
@@ -246,12 +275,20 @@ class TrainerApp:
 
     def _continue(self) -> None:
         if self.mode == "exam":
+            if self.exam_index + 1 >= len(self.exam_generators):
+                self._show_exam_summary()
+                return
             self.exam_index += 1
         self._next_task()
 
     def _show_exam_summary(self) -> None:
         frame = self._clear()
-        ttk.Label(frame, text="Prüfungsergebnis", style="Title.TLabel").pack(anchor="w")
+        ttk.Label(
+            frame,
+            text=f"Prüfung abgeschlossen · {len(self.exam_results)} von "
+            f"{len(self.exam_generators)} Aufgaben",
+            style="Title.TLabel",
+        ).pack(anchor="w")
         earned = sum(result[1] for result in self.exam_results)
         possible = sum(result[2] for result in self.exam_results)
         percent = earned / possible * 100 if possible else 0

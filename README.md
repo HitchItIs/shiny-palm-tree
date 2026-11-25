@@ -17,7 +17,7 @@ Eine neue Windows-Version wird beim Erstellen eines Versions-Tags als Release ve
 | `raid` | RAID-Kalkulator | Brutto- und Nettokapazität, Ausfallsicherheit und Effizienz |
 | `numerals` | Zahlensysteme (Dez/Bin/Hex) | Umrechnung zwischen Dezimal-, Binär- und Hexadezimalsystem |
 | `pricing` | Bezugskalkulation | Zieleinkaufspreis, Bareinkaufspreis und Bezugspreis |
-| `sla` | SLA & Verfügbarkeit | Verfügbarkeit und maximal zulässige Ausfallzeit pro Jahr |
+| `sla` | SLA & Verfügbarkeit | Verfügbarkeit sowie Ausfallzeiten pro Jahr und 30-Tage-Monat |
 
 ## Funktionen
 
