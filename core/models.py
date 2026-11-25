@@ -12,9 +12,9 @@ class InputField:
 class Task:
     category: str
     title: str
-    description : str
+    description: str
     fields: list[InputField]
-    solution_steps: list[InputField]
+    solution_steps: list[str]
 
 @dataclass
 class EvaluationResult:
