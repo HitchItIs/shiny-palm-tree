@@ -28,6 +28,14 @@ class TestNumeralGenerator(unittest.TestCase):
             {"decimal": "42", "hexadecimal": "2A"},
         )
 
+    def test_fixed_hexadecimal_conversion(self) -> None:
+        with patch("random.choice", return_value="Hexadezimalzahl"), patch("random.randint", return_value=4095):
+            task = self.gen.generate()
+        self.assertEqual(
+            {field.key: field.expected_value for field in task.fields},
+            {"decimal": "4095", "binary": "111111111111"},
+        )
+
     def test_100_random_tasks(self) -> None:
         for _ in range(100):
             task = self.gen.generate()
