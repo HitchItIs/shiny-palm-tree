@@ -4,23 +4,10 @@ import tkinter as tk
 from tkinter import ttk
 
 from core.evaluator import Evaluator
+from core.grading import exam_grade
+from core.models import EvaluationResult, Task
 from core.stats import StatsStorage
 from generators.base import BaseGenerator
-from core.models import Task, EvaluationResult
-
-
-def exam_grade(percent: float) -> str:
-    if percent >= 92:
-        return "1 – sehr gut"
-    if percent >= 81:
-        return "2 – gut"
-    if percent >= 67:
-        return "3 – befriedigend"
-    if percent >= 50:
-        return "4 – ausreichend"
-    if percent >= 30:
-        return "5 – mangelhaft"
-    return "6 – ungenügend"
 
 
 class TrainerApp:

@@ -1,6 +1,12 @@
 # IHK AP1 Trainer für FIAE
 
-Ein interaktiver Kommandozeilen-Trainer zur Vorbereitung auf die IHK-Abschlussprüfung Teil 1 (AP1) für Fachinformatikerinnen und Fachinformatiker der Anwendungsentwicklung (FIAE). Der Trainer erzeugt praxisnahe Aufgaben, wertet Antworten direkt aus und erklärt die Rechenwege.
+Ein interaktiver Trainer zur Vorbereitung auf die IHK-Abschlussprüfung Teil 1 (AP1) für Fachinformatikerinnen und Fachinformatiker der Anwendungsentwicklung (FIAE). Die Desktop-App erzeugt praxisnahe Aufgaben, wertet Antworten direkt aus und erklärt die Lösungswege.
+
+## Windows-App herunterladen
+
+Lade die Datei `IHK-AP1-Trainer.exe` aus dem neuesten [GitHub Release](https://github.com/HitchItIs/shiny-palm-tree/releases/latest) herunter und öffne sie per Doppelklick. Python muss dafür nicht installiert sein. Der Trainer speichert den persönlichen Fortschritt lokal in deinem Benutzerordner unter `.ihk-ap1-trainer/stats.json`.
+
+Eine neue Windows-Version wird beim Erstellen eines Versions-Tags als Release veröffentlicht. Workflow-Ausführungen, die manuell gestartet wurden, stellen die EXE als herunterladbares Aktions-Artefakt bereit.
 
 ## Themen
 
@@ -22,15 +28,17 @@ Ein interaktiver Kommandozeilen-Trainer zur Vorbereitung auf die IHK-Abschlusspr
 - Toleranz bei Rundungen und Eingabe von Dezimalzahlen mit deutschem Komma
 - Rich-basierte Oberfläche mit Themenübersicht, Fortschrittsbalken und Serienanzeige für perfekte Aufgaben
 
-## Installation und Start
+## Start aus dem Quellcode
 
-Voraussetzung ist Python 3.10 oder neuer. Im Projektverzeichnis unter Windows PowerShell:
+Voraussetzung ist Python 3.10 oder neuer. Die Desktop-App startet standardmäßig; für die ältere Terminal-Oberfläche verwende `--cli`. Im Projektverzeichnis unter Windows PowerShell:
 
 ```powershell
 python -m venv venv
 .\venv\Scripts\Activate.ps1
 pip install -r requirements.txt
 python main.py
+# Terminal-Oberfläche
+python main.py --cli
 ```
 
 Falls die PowerShell-Skriptausführung die Aktivierung blockiert, kann Python auch direkt aus der virtuellen Umgebung aufgerufen werden:
@@ -57,6 +65,7 @@ Erstelle in `generators/` eine Klasse, die von `BaseGenerator` erbt. Implementie
 ```text
 .
 ├── core/
+│   ├── grading.py
 │   ├── evaluator.py
 │   ├── models.py
 │   └── stats.py
@@ -79,6 +88,7 @@ Erstelle in `generators/` eine Klasse, die von `BaseGenerator` erbt. Implementie
 │   └── test_transfer.py
 ├── .gitignore
 ├── main.py
+├── gui.py
 ├── README.md
 └── requirements.txt
 ```

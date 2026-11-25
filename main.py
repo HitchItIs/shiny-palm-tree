@@ -1,5 +1,6 @@
 import random
 import time
+import argparse
 
 from rich import box
 from rich.console import Console
@@ -9,6 +10,7 @@ from rich.prompt import Prompt
 from rich.table import Table
 
 from core.evaluator import Evaluator
+from core.grading import exam_grade
 from core.models import Task
 from core.stats import StatsStorage
 from generators.base import BaseGenerator
@@ -180,20 +182,6 @@ def _record_result(
     return streak
 
 
-def _exam_grade(percent: float) -> str:
-    if percent >= 92:
-        return "1 – sehr gut"
-    if percent >= 81:
-        return "2 – gut"
-    if percent >= 67:
-        return "3 – befriedigend"
-    if percent >= 50:
-        return "4 – ausreichend"
-    if percent >= 30:
-        return "5 – mangelhaft"
-    return "6 – ungenügend"
-
-
 def run_exam(
     evaluator: Evaluator,
     stats: StatsStorage,
@@ -235,7 +223,7 @@ def run_exam(
     if completed:
         console.print(
             f"Ergebnis: [bold]{percent:.1f}%[/bold] · "
-            f"Note: [bold]{_exam_grade(percent)}[/bold] · "
+            f"Note: [bold]{exam_grade(percent)}[/bold] · "
             f"{'[bold green]Bestanden[/bold green]' if percent >= 50 else '[bold red]Nicht bestanden[/bold red]'}"
         )
         console.print(
@@ -311,5 +299,25 @@ def main() -> None:
     console.print("[dim]Bis zum nächsten Mal![/dim]")
 
 
+def launch_gui() -> None:
+    import tkinter as tk
+
+    from gui import TrainerApp
+
+    root = tk.Tk()
+    TrainerApp(root, GENERATORS)
+    root.mainloop()
+
+
 if __name__ == "__main__":
-    main()
+    parser = argparse.ArgumentParser(description="IHK AP1 Trainer")
+    parser.add_argument(
+        "--cli",
+        action="store_true",
+        help="Start the terminal version instead of the desktop app.",
+    )
+    arguments = parser.parse_args()
+    if arguments.cli:
+        main()
+    else:
+        launch_gui()
