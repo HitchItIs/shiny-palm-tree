@@ -61,18 +61,6 @@ class TrainerApp:
             foreground=[("disabled", "#f3f6fb"), ("pressed", "white"), ("active", "white")],
             background=[("disabled", "#9ab8da"), ("pressed", "#174b80"), ("active", "#1e5d9f")],
         )
-        style.configure(
-            "TButton",
-            font=("Segoe UI", 11),
-            foreground="#17233b",
-            background="#e5eaf2",
-            padding=(10, 7),
-        )
-        style.map(
-            "TButton",
-            foreground=[("disabled", "#8894a8"), ("pressed", "#17233b"), ("active", "#17233b")],
-            background=[("disabled", "#f1f3f6"), ("pressed", "#cbd7e8"), ("active", "#d6e2f2")],
-        )
         style.configure("Horizontal.TProgressbar", troughcolor="#e5eaf2", background="#2872c7")
 
         self._show_menu()
@@ -129,6 +117,7 @@ class TrainerApp:
             ttk.Button(
                 card,
                 text="Thema starten",
+                style="Accent.TButton",
                 command=lambda selected=generator: self.start_practice(selected),
             ).pack(anchor="w")
 
@@ -174,7 +163,12 @@ class TrainerApp:
             heading = f"Prüfung · Aufgabe {self.exam_index + 1} von {len(self.exam_generators)}"
         elif self.mode == "random" and self.active_generator:
             heading = f"{task.title} · {self.active_generator.name}"
-        ttk.Button(frame, text="← Hauptmenü", command=self._show_menu).pack(anchor="w")
+        ttk.Button(
+            frame,
+            text="← Hauptmenü",
+            style="Accent.TButton",
+            command=self._show_menu,
+        ).pack(anchor="w")
         ttk.Label(frame, text=heading, style="Title.TLabel", wraplength=820).pack(
             anchor="w", pady=(18, 8)
         )
@@ -227,7 +221,12 @@ class TrainerApp:
         answers: dict[str, str],
     ) -> None:
         frame = self._clear()
-        ttk.Button(frame, text="← Hauptmenü", command=self._show_menu).pack(anchor="w")
+        ttk.Button(
+            frame,
+            text="← Hauptmenü",
+            style="Accent.TButton",
+            command=self._show_menu,
+        ).pack(anchor="w")
         ttk.Label(frame, text="Auswertung", style="Title.TLabel").pack(anchor="w", pady=(18, 8))
         percent = result.points_earned / result.max_points * 100 if result.max_points else 0
         summary = f"{result.points_earned} von {result.max_points} Punkten · {percent:.0f}%"
