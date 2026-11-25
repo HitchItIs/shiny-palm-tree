@@ -9,12 +9,14 @@ from core.evaluator import Evaluator
 from core.models import Task
 from generators.base import BaseGenerator
 from generators.subnet import SubnetGenerator
+from generators.transfer import TransferGenerator
 
 
 console = Console()
 
 GENERATORS: list[BaseGenerator] = [
     SubnetGenerator(),
+    TransferGenerator(),
 ]
 
 
