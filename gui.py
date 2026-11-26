@@ -114,10 +114,18 @@ class TrainerApp:
                 style="CardText.TLabel",
             ).pack(anchor="w", pady=(8, 4))
             ttk.Progressbar(card, maximum=100, value=progress).pack(fill="x", pady=(0, 12))
-            ttk.Button(
+            tk.Button(
                 card,
-                text="Thema starten",
-                style="Accent.TButton",
+                text="Start",
+                font=("Segoe UI", 11, "bold"),
+                foreground="white",
+                background="#2872c7",
+                activeforeground="white",
+                activebackground="#1e5d9f",
+                relief="flat",
+                borderwidth=0,
+                padx=16,
+                pady=10,
                 command=lambda selected=generator: self.start_practice(selected),
             ).pack(anchor="w")
 
