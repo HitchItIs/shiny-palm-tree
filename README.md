@@ -1,6 +1,6 @@
 # AP1 Trainer für FIAE
 
-Ein interaktiver Trainer zur Vorbereitung auf die IHK-Abschlussprüfung Teil 1 (AP1) für Fachinformatikerinnen und Fachinformatiker der Anwendungsentwicklung (FIAE). Die Desktop-App erzeugt praxisnahe Aufgaben, wertet Antworten direkt aus und erklärt die Lösungswege.
+Ein interaktiver Trainer zur Vorbereitung auf die Abschlussprüfung Teil 1 (AP1) für Fachinformatikerinnen und Fachinformatiker der Anwendungsentwicklung (FIAE). Die Desktop-App erzeugt praxisnahe Aufgaben, wertet Antworten direkt aus und erklärt die Lösungswege.
 
 ## Windows-App herunterladen
 
