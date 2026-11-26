@@ -4,7 +4,7 @@ Ein interaktiver Trainer zur Vorbereitung auf die Abschlussprüfung Teil 1 (AP1)
 
 ## Windows-App herunterladen
 
-Lade die Datei `IHK-AP1-Trainer.exe` aus dem neuesten [GitHub Release](https://github.com/HitchItIs/shiny-palm-tree/releases/latest) herunter und öffne sie per Doppelklick. Python muss dafür nicht installiert sein. Der Trainer speichert den persönlichen Fortschritt lokal in deinem Benutzerordner unter `.ihk-ap1-trainer/stats.json`.
+Lade die Datei `AP1-Trainer.exe` aus dem neuesten [GitHub Release](https://github.com/HitchItIs/shiny-palm-tree/releases/latest) herunter und öffne sie per Doppelklick. Python muss dafür nicht installiert sein. Der Trainer speichert den persönlichen Fortschritt lokal in deinem Benutzerordner unter `.-ap1-trainer/stats.json`.
 
 Eine neue Windows-Version wird beim Erstellen eines Versions-Tags als Release veröffentlicht. Workflow-Ausführungen, die manuell gestartet wurden, stellen die EXE als herunterladbares Aktions-Artefakt bereit.
 
